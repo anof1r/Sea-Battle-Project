@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>SeaBattleProj</artifactId>
+        <groupId>org.example</groupId>
+        <version>1.0-SNAPSHOT</version>
+
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <profiles>
+        <profile>
+            <id>qulice</id>
+            <!--   Константы для профиля   -->
+            <properties>
+                <qulice.version>0.18.19</qulice.version>
+                <qulice.ext.version>1.0-SNAPSHOT</qulice.ext.version>
+            </properties>
+
+            <!-- Дейсвия которые будут выполнятся при сборке этого и всех дочерних проектов -->
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.qulice</groupId>
+                        <artifactId>qulice-maven-plugin</artifactId>
+                        <version>0.18.19</version>
+                        <configuration>
+                            <license>file:${basedir}/LICENSE.txt</license>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+
+
+
+    <groupId>SeaBattle</groupId>
+    <artifactId>testmodule</artifactId>
+
+    <properties>
+        <guava.version>28.1-jre</guava.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons-collections.version}</version>
+        </dependency>
+    </dependencies>
+
+
+
+</project>
