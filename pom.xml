@@ -25,7 +25,10 @@
     <modules>
         <module>testmodule</module>
         <module>qulice</module>
+<<<<<<< HEAD
         <module>entry-point</module>
+=======
+>>>>>>> 901cf7117a667d079f81eb880171fd1a92eba5b1
     </modules>
     <dependencies>
         <dependency>
@@ -47,9 +50,12 @@
         <maven.compiler.target>16</maven.compiler.target>
     </properties>
 
+<<<<<<< HEAD
 
 
 
 
 
+=======
+>>>>>>> 901cf7117a667d079f81eb880171fd1a92eba5b1
 </project>

@@ -8,7 +8,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="qulice" />
         <module name="testmodule" />
+<<<<<<< HEAD
         <module name="entry-point" />
+=======
+>>>>>>> 901cf7117a667d079f81eb880171fd1a92eba5b1
       </profile>
     </annotationProcessing>
   </component>
