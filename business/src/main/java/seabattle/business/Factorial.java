@@ -17,5 +17,11 @@ public interface Factorial {
      * @return Result of operation.
      */
     int calculate(int value);
+    /**
+     * Can we apply this method for calculation.
+     * @param value Value of factorial
+     * @return True in case of can
+     */
+    boolean canApply(int value);
 
 }

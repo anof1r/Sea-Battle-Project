@@ -1,5 +1,6 @@
 package seabattle.business;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
  * @since 0.0.1
  */
 @Component("flatFactorial")
+@Primary
 public class FlatFactorial implements Factorial {
     @Override
     public final int calculate(final int value) {
@@ -16,5 +18,10 @@ public class FlatFactorial implements Factorial {
             result = result * idx;
         }
         return result;
+    }
+
+    @Override
+    public boolean canApply(int value) {
+        return false;
     }
 }

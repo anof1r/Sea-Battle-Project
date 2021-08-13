@@ -23,4 +23,9 @@ public class RecursiveFactorial implements Factorial {
         }
         return result;
     }
+
+    @Override
+    public boolean canApply(int value) {
+        return false;
+    }
 }
