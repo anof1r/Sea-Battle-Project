@@ -73,9 +73,9 @@ public class MessageRest implements MessageController {
         return ret;
     }
 
-    @GetMapping("/factorialInform")
+    @GetMapping("/fInform")
     public final FactorialResults withInformation() {
-        final int defaultval = 5;
+        final int defaultval = 12;
         FactorialResults results = null;
         for (final Factorial fact : this.factorials) {
             if (fact.canApply(defaultval)) {

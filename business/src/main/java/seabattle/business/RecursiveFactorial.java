@@ -26,6 +26,14 @@ public class RecursiveFactorial implements Factorial {
 
     @Override
     public boolean canApply(int value) {
-        return false;
+        if (value >= 10) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
+
+

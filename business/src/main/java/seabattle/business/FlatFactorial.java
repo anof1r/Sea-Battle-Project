@@ -22,6 +22,12 @@ public class FlatFactorial implements Factorial {
 
     @Override
     public boolean canApply(int value) {
-        return false;
+        if (value <= 9) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
