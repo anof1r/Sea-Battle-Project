@@ -4,8 +4,8 @@
 
 package seabattle.business;
 
-import database.FactorialCrud;
-import database.FactorialResultsCrud;
+import seabattle.database.FactorialCrud;
+import seabattle.database.FactorialResultsCrud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

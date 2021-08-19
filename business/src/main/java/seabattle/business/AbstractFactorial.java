@@ -3,10 +3,10 @@ package seabattle.business;
 /*
  * Copyright
  */
-import database.FactorialCrud;
-import database.FactorialJpa;
-import database.FactorialResultsCrud;
-import database.FactorialResultsJpa;
+import seabattle.database.FactorialCrud;
+import seabattle.database.FactorialJpa;
+import seabattle.database.FactorialResultsCrud;
+import seabattle.database.FactorialResultsJpa;
 
 /**
  * Abstract factorial class with writing result in database.

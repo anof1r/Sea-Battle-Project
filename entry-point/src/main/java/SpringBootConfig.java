@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @since 0.0.1
  */
 @SpringBootApplication(scanBasePackages = "seabattle")
-@EnableJpaRepositories(basePackages = "seabattle")
-@EntityScan(basePackages = "seabattle")
+@EnableJpaRepositories(basePackages = "seabattle.database")
+@EntityScan(basePackages = "seabattle.database")
 public class SpringBootConfig {
 }
