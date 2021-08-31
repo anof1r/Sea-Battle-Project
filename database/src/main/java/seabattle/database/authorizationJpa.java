@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * Factorial JPA.
@@ -28,7 +29,7 @@ public class authorizationJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false, updatable = false)
-    private Long id;
+    private Integer id;
 
     /**
      * User nickname
@@ -69,7 +70,7 @@ public class authorizationJpa {
      *
      * @return Id.
      */
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
@@ -89,6 +90,7 @@ public class authorizationJpa {
     public String getPassword() {
         return this.password;
     }
+
 }
 
 

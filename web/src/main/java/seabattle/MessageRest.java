@@ -4,17 +4,15 @@ package seabattle;/*
 
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
 import seabattle.business.Factorial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import seabattle.database.AuthorizationCrud;
 import seabattle.database.authorizationJpa;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Rest implementation of controller.
@@ -95,5 +93,9 @@ public class MessageRest implements MessageController {
         String pass = "123qwe";
         authorizationJpa results = new authorizationJpa("anof1r","denis.a@123.com","qwe123");
         return aCrud.save(results);
+    }
+    @GetMapping("/search/{id}")
+    public final Optional<authorizationJpa> search(@PathVariable int id){
+        return aCrud.findById(id);
     }
 }
