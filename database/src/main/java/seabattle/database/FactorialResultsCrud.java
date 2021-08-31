@@ -13,4 +13,3 @@ import org.springframework.data.repository.CrudRepository;
 public interface FactorialResultsCrud extends CrudRepository<FactorialResultsJpa, Integer> {
 
 }
-

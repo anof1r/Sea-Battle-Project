@@ -3,6 +3,8 @@ package seabattle.database;
 /*
  * Copyright
  */
+import seabattle.database.FactorialJpa;
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,7 +41,7 @@ public class FactorialResultsJpa {
      */
     @ManyToOne()
     @JoinColumn(name = "factorial_id")
-    private FactorialJpa factorial;
+    private seabattle.database.FactorialJpa factorial;
 
     /**
      * Date of calculation.
@@ -75,7 +77,7 @@ public class FactorialResultsJpa {
      * @param res Result of calculation.
      */
     public FactorialResultsJpa(
-            final FactorialJpa fact,
+            final seabattle.database.FactorialJpa fact,
             final long val,
             final long res) {
         this.factorial = fact;
