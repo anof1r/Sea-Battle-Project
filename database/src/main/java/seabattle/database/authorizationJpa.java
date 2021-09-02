@@ -19,7 +19,7 @@ import java.util.Optional;
  * @since 0.0.1
  */
 @Entity
-@Table(schema = "public", name = "authorizationDB")
+@Table(schema = "public", name = "authorization")
 public class authorizationJpa {
 
     /**
@@ -52,7 +52,6 @@ public class authorizationJpa {
 
     public authorizationJpa() {
     }
-
 
 
     public authorizationJpa(
@@ -92,5 +91,6 @@ public class authorizationJpa {
     }
 
 }
+
 
 

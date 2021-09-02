@@ -2,8 +2,10 @@ package seabattle.database;
 /*
  * Copyright
  */
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import javax.persistence.QueryHint;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,8 +15,7 @@ import java.util.Optional;
  * @since 0.0.1
  */
 public interface AuthorizationCrud extends CrudRepository<seabattle.database.authorizationJpa, Integer> {
-
-
+    List<authorizationJpa> findByNicknameAndPasswordLike(String nickname, String password);
 }
 
 

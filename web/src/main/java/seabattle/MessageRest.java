@@ -3,14 +3,15 @@ package seabattle;/*
  */
 
 
+import com.sun.jdi.connect.spi.Connection;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.web.bind.annotation.*;
-import seabattle.business.Factorial;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.annotation.QueryAnnotation;
+import org.springframework.web.bind.annotation.*;
 import seabattle.database.AuthorizationCrud;
 import seabattle.database.authorizationJpa;
 
+import java.sql.DriverManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,76 +27,35 @@ import java.util.Optional;
 @RequestMapping("test")
 public class MessageRest implements MessageController {
 
-    private final Factorial factorial;
+    public MessageRest(AuthorizationCrud aCrud) {
+        this.aCrud = aCrud;
+    }
+
     @GetMapping("/message")
     @Override
     public final String getMessage() {
         return "My first string!";
     }
-    /**
-     * List of factorials.
-     */
-    private final List<Factorial> factorials;
 
-    /**
-     * Default contructor.
-     * @param factorial Factorial calculator instance.
-     * @param factorials List if factorials calculators.
-     */
-    private final ObjectProvider<FactorialResults> provider;
     final AuthorizationCrud aCrud;
-    @Autowired
-    public MessageRest(
-            @Qualifier("flatFactorial") final Factorial factorial,
-            final List<Factorial> factorials,
-            final ObjectProvider<FactorialResults> provider, final AuthorizationCrud aCrud) {
-        this.factorial = factorial;
-        this.factorials = factorials;
-        this.provider = provider;
-        this.aCrud = aCrud;
-    }
 
-    @GetMapping("/factorial")
-    public final int getFactorial() {
-        final int defaultval = 5;
-        return this.factorial.calculate(defaultval);
-    }
 
-    @GetMapping("/smartFactorial")
-    public final int smartFactorial() {
-        final int defaultval = 5;
-        int ret = 0;
-        for (final Factorial fact : this.factorials) {
-            if (fact.canApply(defaultval)) {
-                ret = fact.calculate(defaultval);
-                break;
-            }
-        }
-        return ret;
-    }
-    @GetMapping("/fInform")
-    public final FactorialResults withInformation() {
-        final int defaultval = 3;
-        FactorialResults results = null;
-        for (final Factorial fact : this.factorials) {
-            if (fact.canApply(defaultval)) {
-                results = this.provider.getObject(
-                        fact.calculate(defaultval),
-                        fact.getClass().getSimpleName()
-                );
-                break;
-            }
-        }
-        return results;
-    }
     @GetMapping("/auth")
     public final authorizationJpa userInfo() {
-        String pass = "123qwe";
-        authorizationJpa results = new authorizationJpa("anof1r","denis.a@123.com","qwe123");
+        authorizationJpa results = new authorizationJpa("bAld","zavod.worker@mail.com","potato47");
         return aCrud.save(results);
     }
     @GetMapping("/search/{id}")
     public final Optional<authorizationJpa> search(@PathVariable int id){
         return aCrud.findById(id);
     }
+    @GetMapping("/searchALL")
+    public final Iterable<authorizationJpa> search (){
+        return aCrud.findAll();
+    }
+    @GetMapping("/eap/{nick},{password}")
+    public final List<authorizationJpa> search2(@PathVariable String nick, @PathVariable String password){
+        return aCrud.findByNicknameAndPasswordLike(nick, password);
+    }
 }
+
