@@ -86,7 +86,7 @@ public class MessageRest implements MessageController {
                     .and()
                     .csrf()
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-            // @formatter:on
+
         }
     }
 }
