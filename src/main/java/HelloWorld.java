@@ -8,7 +8,6 @@ public class HelloWorld {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-
         //Lists.newArrayList from Google Guava
         List<String> collection = Lists.newArrayList("OneString", "TwoString", "TreeString");
 

@@ -15,7 +15,7 @@ import java.util.Optional;
  * @since 0.0.1
  */
 public interface AuthorizationCrud extends CrudRepository<seabattle.database.authorizationJpa, Integer> {
-    List<authorizationJpa> findByNicknameAndPasswordLike(String nickname, String password);
+    authorizationJpa findByNicknameAndPasswordLike(String nickname, String password);
 }
 
 

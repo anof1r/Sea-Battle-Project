@@ -3,17 +3,16 @@ package seabattle;/*
  */
 
 
-import com.sun.jdi.connect.spi.Connection;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.QueryAnnotation;
+
+
+import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.*;
 import seabattle.database.AuthorizationCrud;
 import seabattle.database.authorizationJpa;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.*;
 
-import java.sql.DriverManager;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Rest implementation of controller.
@@ -26,6 +25,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("test")
 public class MessageRest implements MessageController {
+
 
     public MessageRest(AuthorizationCrud aCrud) {
         this.aCrud = aCrud;
@@ -42,7 +42,7 @@ public class MessageRest implements MessageController {
 
     @GetMapping("/auth")
     public final authorizationJpa userInfo() {
-        authorizationJpa results = new authorizationJpa("bAld","zavod.worker@mail.com","potato47");
+        authorizationJpa results = new authorizationJpa("NoPassBoyy","dontusepass@mail.com","");
         return aCrud.save(results);
     }
     @GetMapping("/search/{id}")
@@ -54,8 +54,15 @@ public class MessageRest implements MessageController {
         return aCrud.findAll();
     }
     @GetMapping("/eap/{nick},{password}")
-    public final List<authorizationJpa> search2(@PathVariable String nick, @PathVariable String password){
+    public final authorizationJpa search2(@PathVariable String nick, @PathVariable String password){
         return aCrud.findByNicknameAndPasswordLike(nick, password);
+    }
+    @RequestMapping("/resource")
+    public Map<String,Object> home() {
+        Map<String,Object> model = new HashMap<String,Object>();
+        model.put("id", UUID.randomUUID().toString());
+        model.put("content", "Hello World!!");
+        return model;
     }
 }
 
