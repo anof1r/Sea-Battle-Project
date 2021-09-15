@@ -6,11 +6,16 @@ package seabattle;/*
 
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import seabattle.database.AuthorizationCrud;
 import seabattle.database.authorizationJpa;
 
@@ -25,7 +30,7 @@ import java.util.*;
  * l,s
  * @since 0.0.1
  */
-@CrossOrigin
+@CrossOrigin("*")
 @RestController
 @RequestMapping("test")
 public class MessageRest implements MessageController {
@@ -72,17 +77,32 @@ public class MessageRest implements MessageController {
     public Principal user(Principal user) {
         return user;
     }
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("*");
+    }
     @Configuration
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
-    protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+            // @formatter:off
             http
-                    .httpBasic()
-                    .and()
+                    .httpBasic().and()
                     .authorizeRequests()
                     .antMatchers("/index.html", "/", "/home", "/login").permitAll()
-                    .anyRequest().authenticated();
+                    .anyRequest().authenticated()
+                    .and()
+                    .csrf()
+                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+            // @formatter:on
+        }
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**")
+                    .allowedOrigins("*")
+                    .allowedMethods("*");
         }
     }
 }
