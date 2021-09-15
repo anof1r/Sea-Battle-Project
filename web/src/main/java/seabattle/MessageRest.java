@@ -77,29 +77,6 @@ public class MessageRest implements MessageController {
     public Principal user(Principal user) {
         return user;
     }
-    @Configuration
-    @Order(SecurityProperties.BASIC_AUTH_ORDER)
-    protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
-        @Override
-        public void addCorsMappings(CorsRegistry registry) {
-            registry.addMapping("/**")
-                    .allowedOrigins("*")
-                    .allowedMethods("*");
-        }
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            // @formatter:off
-            http
-                    .httpBasic().and()
-                    .authorizeRequests()
-                    .antMatchers("/index.html", "/", "/home", "/login").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
-                    .csrf()
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-            // @formatter:on
-        }
 
-    }
 }
 
