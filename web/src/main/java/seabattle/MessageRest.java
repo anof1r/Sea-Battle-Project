@@ -77,14 +77,15 @@ public class MessageRest implements MessageController {
     public Principal user(Principal user) {
         return user;
     }
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("*");
-    }
     @Configuration
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
     protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**")
+                    .allowedOrigins("http://localhost:4200")
+                    .allowedMethods("*");
+        }
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             // @formatter:off
@@ -98,12 +99,7 @@ public class MessageRest implements MessageController {
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
             // @formatter:on
         }
-        @Override
-        public void addCorsMappings(CorsRegistry registry) {
-            registry.addMapping("/**")
-                    .allowedOrigins("*")
-                    .allowedMethods("*");
-        }
+
     }
 }
 
