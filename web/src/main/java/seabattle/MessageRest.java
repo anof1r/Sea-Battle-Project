@@ -30,7 +30,7 @@ import java.util.*;
  * l,s
  * @since 0.0.1
  */
-@CrossOrigin("*")
+@CrossOrigin
 @RestController
 @RequestMapping("test")
 public class MessageRest implements MessageController {
@@ -83,7 +83,7 @@ public class MessageRest implements MessageController {
         @Override
         public void addCorsMappings(CorsRegistry registry) {
             registry.addMapping("/**")
-                    .allowedOrigins("http://localhost:4200")
+                    .allowedOrigins("*")
                     .allowedMethods("*");
         }
         @Override
