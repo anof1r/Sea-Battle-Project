@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,6 +41,7 @@ public class EntryPoint {
     }
 
     @Configuration
+    @EnableWebSecurity
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
     protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
@@ -48,7 +50,11 @@ public class EntryPoint {
         public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
             auth.inMemoryAuthentication()
                     .withUser("anof1r").password(passwordEncoder().encode("anof123"))
+                    .authorities("ROLE_USER")
+                    .and()
+                    .withUser("TestUser").password(passwordEncoder().encode("test123"))
                     .authorities("ROLE_USER");
+
         }
         @Override
         public void addCorsMappings(CorsRegistry registry) {
@@ -57,16 +63,18 @@ public class EntryPoint {
                     .allowedMethods("*");
         }
         @Override
-        protected void configure(HttpSecurity http) throws Exception {
+        protected void configure(final HttpSecurity http) throws Exception {
             // @formatter:off
             http
                     .httpBasic().and()
                     .authorizeRequests()
-                    .antMatchers("/index.html", "/", "/home", "/login", "/test/user").permitAll()
-                    .anyRequest().authenticated()
+                    .antMatchers("/index.html", "/", "/home", "/login", "/test/user","/logout").permitAll()
+                    .anyRequest().authenticated().and()
+                    .logout()
                     .and()
                     .csrf()
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+
             // @formatter:on
         }
         @Bean

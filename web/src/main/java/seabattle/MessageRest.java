@@ -3,19 +3,11 @@ package seabattle;/*
  */
 
 
-
-
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import seabattle.database.AuthorizationCrud;
 import seabattle.database.authorizationJpa;
 
@@ -30,8 +22,10 @@ import java.util.*;
  * l,s
  * @since 0.0.1
  */
+
 @CrossOrigin
 @RestController
+
 @RequestMapping("test")
 public class MessageRest implements MessageController {
 
