@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -54,7 +55,6 @@ public class EntryPoint {
                     .and()
                     .withUser("TestUser").password(passwordEncoder().encode("test123"))
                     .authorities("ROLE_USER");
-
         }
         @Override
         public void addCorsMappings(CorsRegistry registry) {
@@ -68,7 +68,7 @@ public class EntryPoint {
             http
                     .httpBasic().and()
                     .authorizeRequests()
-                    .antMatchers("/index.html", "/", "/home", "/login", "/test/user","/logout").permitAll()
+                    .antMatchers("/index.html", "/", "/home", "/login", "/rest/user","/logout").permitAll()
                     .anyRequest().authenticated().and()
                     .logout()
                     .and()

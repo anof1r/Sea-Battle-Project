@@ -4,6 +4,7 @@ package seabattle;/*
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import seabattle.database.AuthorizationCrud;
 import seabattle.database.authorizationJpa;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.*;
 
@@ -23,9 +26,9 @@ import java.util.*;
  * @since 0.0.1
  */
 
-@CrossOrigin("https://localhost:4200/home")
+@CrossOrigin
 @RestController
-@RequestMapping("test")
+@RequestMapping("rest")
 public class MessageRest implements MessageController {
 
 
@@ -69,9 +72,15 @@ public class MessageRest implements MessageController {
         model.put("content", "Hello World");
         return model;
     }
+
     @RequestMapping("/user")
     public Principal user(Principal user) {
         return user;
+    }
+    @RequestMapping("/logout")
+    public ResponseEntity<String> logoutUser(HttpSession user){
+         user.invalidate();
+         return ResponseEntity.ok("{}");
     }
 
     @RequestMapping("/checkAvailable")
@@ -86,6 +95,33 @@ public class MessageRest implements MessageController {
     public String checkState(Principal user) {
     controller.username = user.getName();
     return "volatile is now - " + controller.getUsername() + "!";
+    }
+    @RequestMapping("/startGame")
+    public String startGame(Principal user) {
+        System.out.println(controller.username);
+        if (controller.username == null){
+            controller.username = user.getName();
+            return "{}";
+        }
+        else {
+            if (controller.username != user.getName()) {
+                controller.username = null;
+                return "{\"game\": 123}";
+            }
+            else{
+                return "{}";
+            }
+        }
+    }
+    @RequestMapping("/getGame")
+    public String getGame(Principal user) {
+        System.out.println(controller.username);
+        if (controller.username == null){
+            return "{\"game\": 123}";
+        }
+        else{
+            return "{}";
+        }
     }
 }
 
