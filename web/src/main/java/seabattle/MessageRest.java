@@ -77,35 +77,25 @@ public class MessageRest implements MessageController {
     public Principal user(Principal user) {
         return user;
     }
+
     @RequestMapping("/logout")
     public ResponseEntity<String> logoutUser(HttpSession user){
          user.invalidate();
          return ResponseEntity.ok("{}");
     }
 
-    @RequestMapping("/checkAvailable")
-    public boolean checkAvailable(Principal user) {
-        if (controller.getUsername() != user.getName()) {
-            return true;
-        }else{
-            return false;
-        }
-    }
-    @RequestMapping("/usernameChange")
-    public String checkState(Principal user) {
-    controller.username = user.getName();
-    return "volatile is now - " + controller.getUsername() + "!";
-    }
+
+
     @RequestMapping("/startGame")
     public String startGame(Principal user) {
-        System.out.println(controller.username);
-        if (controller.username == null){
-            controller.username = user.getName();
+        if (controller.player == null){
+            controller.player = user;
             return "{}";
         }
         else {
-            if (controller.username != user.getName()) {
-                controller.username = null;
+            if (controller.player.getName() != user.getName()) {
+                controller.game = new Game(controller.player, user);
+                controller.player = null;
                 return "{\"game\": 123}";
             }
             else{
@@ -115,13 +105,31 @@ public class MessageRest implements MessageController {
     }
     @RequestMapping("/getGame")
     public String getGame(Principal user) {
-        System.out.println(controller.username);
-        if (controller.username == null){
+        if (controller.player == null){
             return "{\"game\": 123}";
         }
         else{
             return "{}";
         }
+    }
+
+    @RequestMapping("/getGameField")
+    public char[][] getField(Principal user){
+        return controller.game.field;
+    }
+    @RequestMapping("/checkTurn")
+    public ResponseEntity<String> getTurn(Principal user) {
+        if (controller.game.checkTurnOrder(user)) {
+            return ResponseEntity.ok("{\"isMyTurn\": true}");
+        }
+        return ResponseEntity.ok("{}");
+    }
+
+
+    @GetMapping("/turn/{x},{y}")
+    public char[][] makeTurn(Principal user, @PathVariable int x, @PathVariable int y){
+        controller.game.turn(user,x,y);
+        return controller.game.field;
     }
 }
 

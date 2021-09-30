@@ -6,12 +6,9 @@ import java.security.Principal;
 
 @Service
 public class TurnChangeController {
-
-    volatile String username = null;
-
+    public volatile Principal player;
+    public volatile Game game;
     public TurnChangeController(){}
 
-    public String getUsername(){
-        return this.username;
-    }
+
 }
