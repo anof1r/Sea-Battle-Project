@@ -37,7 +37,7 @@ public class MessageRest implements MessageController {
         this.aCrud = aCrud;
     }
 
-    @GetMapping("/message")
+      @GetMapping("/message")
     @Override
     public final String getMessage() {
         return "My first string!";
@@ -47,7 +47,7 @@ public class MessageRest implements MessageController {
     Principal user;
     TurnChangeController controller = new TurnChangeController();
 
-
+    /*
     @GetMapping("/auth")
     public final authorizationJpa userInfo() {
         authorizationJpa results = new authorizationJpa("NoPassBoyy","dontusepass@mail.com","");
@@ -65,6 +65,7 @@ public class MessageRest implements MessageController {
     public final authorizationJpa search2(@PathVariable String nick, @PathVariable String password){
         return aCrud.findByNicknameAndPasswordLike(nick, password);
     }
+     */
     @RequestMapping("/resource")
     public Map<String,Object> home() {
         Map<String,Object> model = new HashMap<String,Object>();
@@ -83,7 +84,6 @@ public class MessageRest implements MessageController {
          user.invalidate();
          return ResponseEntity.ok("{}");
     }
-
 
 
     @RequestMapping("/startGame")
@@ -132,4 +132,3 @@ public class MessageRest implements MessageController {
         return controller.game.field;
     }
 }
-
