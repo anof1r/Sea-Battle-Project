@@ -93,7 +93,8 @@ public class MessageRest implements MessageController {
             return "{}";
         }
         else {
-            if (controller.player.getName() != user.getName()) {
+            //if (controller.player.getName() != user.getName()) {
+            if (!Objects.equals(controller.player.getName(), user.getName())) {
                 controller.game = new Game(controller.player, user);
                 controller.player = null;
                 return "{\"game\": 123}";
